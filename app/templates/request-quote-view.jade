@@ -1,28 +1,70 @@
 extends /templates/base-flat
 
+- var showDone = !view.trialRequest.isNew() && me.isAnonymous();
+
 block content
   .container
-    form.form(class=view.trialRequest.isNew() ? '' : 'hide')
-      h3.text-center(data-i18n="teachers_quote.title")
-      h4.text-center(data-i18n="[html]teachers_quote.subtitle")
+    form#request-form(class=showDone ? 'hide' : '')
+      .row
+        .col-md-offset-2.col-md-8
+          h3.text-center(data-i18n="teachers_quote.title")
+          h4.text-center(data-i18n="[html]teachers_quote.subtitle")
 
-      #form-teacher-info.section
+      if !me.isAnonymous()
         .row
-          .col-sm-offset-2.col-sm-4
+          .col-md-offset-2.col-md-8
+            .alert.alert-info.text-center
+              div
+                span.spr(data-i18n="new_home.logged_in_as")
+                strong= me.broadName()
+                span.spr .
+                span.spr(data-i18n="courses.not_you") Not you?
+                a#logout-link(data-i18n="login.log_out")
+        
+              if me.get('role') === 'student'
+                div#conversion-warning
+                  span.spr(data-i18n="[html]teachers_quote.conversion_warning")
+                  a(href="/" data-i18n="new_home.learn_more")
+        
+      #form-teacher-info
+        if !me.isAnonymous()
+          .row
+            .col-md-offset-2.col-md-4.col-sm-6
+              .form-group
+                label.control-label(data-i18n="general.username")
+                - var name = me.get('name') || '';
+                input.form-control(name="name" value=name, disabled=!!name)
+  
+            .col-md-4.col-sm-6
+              .form-group
+                label.control-label(data-i18n="general.email")
+                - var email = me.get('email') || '';
+                input.form-control(name="email" value=email, disabled=!!email)
+        
+        .row
+          .col-md-offset-2.col-md-4.col-sm-6
             .form-group
-              label.control-label(data-i18n="general.name")
-              - var name = me.get('name') || '';
-              input.form-control(name="name" value=name, disabled=!!name)
-              
-          .col-sm-4
-            #email-form-group.form-group
-              label.control-label(data-i18n="general.email")
-              - var email = me.get('email') || '';
-              input.form-control(name="email" type="email", value=email, disabled=!!email)
+              label.control-label(data-i18n="general.first_name")
+              - var firstName = me.get('firstName') || '';
+              input.form-control(name="firstName" value=firstName, disabled=!!firstName)
+
+          .col-md-4.col-sm-6
+            .form-group
+              label.control-label(data-i18n="general.last_name")
+              - var lastName = me.get('lastName') || '';
+              input.form-control(name="lastName" value=lastName, disabled=!!lastName)
+        
+        if me.isAnonymous()
+          .row
+            .col-md-offset-2.col-md-4.col-sm-6
+              #email-form-group.form-group
+                label.control-label(data-i18n="general.email")
+                - var email = me.get('email') || '';
+                input.form-control(name="email" type="email", value=email, disabled=!!email)
                 
         
         .row
-          .col-sm-offset-2.col-sm-4
+          .col-md-offset-2.col-md-4.col-sm-6
             .form-group
               label.control-label
                 span(data-i18n="teachers_quote.phone_number")
@@ -31,7 +73,7 @@ block content
                 em.text-info(data-i18n="teachers_quote.phone_number_help")
               input.form-control(name="phoneNumber")
               
-          .col-sm-4
+          .col-md-4.col-sm-6
             .form-group
               label.control-label(data-i18n="teachers_quote.role_label")
               .help-block.small
@@ -45,32 +87,32 @@ block content
                 option(data-i18n="teachers_quote.superintendent", value="Superintendent")
                 option(data-i18n="teachers_quote.parent", value="Parent")
       
-      #form-school-info.section
+      #form-school-info
         .row
-          .col-sm-offset-2.col-sm-4
+          .col-md-offset-2.col-md-4.col-sm-6
             .form-group
               label.control-label(data-i18n="teachers_quote.organization_label")
               input.form-control(name="organization")
               
-          .col-sm-4
+          .col-md-4.col-sm-6
             .form-group
               label.control-label(data-i18n="teachers_quote.city")
               input.form-control(name="city")
               
         .row
-          .col-sm-offset-2.col-sm-4
+          .col-md-offset-2.col-md-4.col-sm-6
             .form-group
               label.control-label(data-i18n="teachers_quote.state")
               input.form-control(name="state")
               
-          .col-sm-4
+          .col-md-4.col-sm-6
             .form-group
               label.control-labellabel.control-label(data-i18n="teachers_quote.country")
               input.form-control(name="country")
             
-      #form-students-info.section
+      #form-students-info
         .row
-          .col-sm-offset-2.col-sm-5
+          .col-md-offset-2.col-md-4
             .form-group
               label.control-label(data-i18n="courses.number_students")
               .help-block.small
@@ -88,67 +130,81 @@ block content
         .form-group
 
           .row
-            .col-sm-offset-2.col-sm-4
+            .col-md-offset-2.col-md-10
                 label.control-label(data-i18n="teachers_quote.education_level_label")
                 .help-block.small
                   em.text-info(data-i18n="teachers_quote.education_level_help")
                   
-          .row
-            .col-sm-offset-2.col-sm-2
-              label.control-label.checkbox
-                input(type="checkbox" name="educationLevel" value="Elementary")
-                span(data-i18n="teachers_quote.elementary_school")
-            .col-sm-2
-              label.control-label.checkbox
-                input(type="checkbox" name="educationLevel" value="High")
-                span(data-i18n="teachers_quote.high_school")
-            .col-sm-2
-              label.control-label.checkbox
-                input(type="checkbox" name="educationLevel" value="Middle")
-                span(data-i18n="teachers_quote.middle_school")
-            .col-sm-2
-              label.control-label.checkbox
-                input(type="checkbox" name="educationLevel" value="College+")
-                span(data-i18n="teachers_quote.college_plus")
-                
-          .row
-            .col-sm-offset-2.col-sm-6
-              // Other field uses custom logic, so no name field is included in either input.
-              // That way the forms library ignores it.
-              .form-group
-                label.control-label.checkbox
+            .col-md-offset-2.col-md-5
+              .checkbox
+                label
+                  input(type="checkbox" name="educationLevel" value="Elementary")
+                  span(data-i18n="teachers_quote.elementary_school")
+              .checkbox
+                label
+                  input(type="checkbox" name="educationLevel" value="High")
+                  span(data-i18n="teachers_quote.high_school")
+              .checkbox
+                label
+                  input(type="checkbox" name="educationLevel" value="Middle")
+                  span(data-i18n="teachers_quote.middle_school")
+              .checkbox
+                label
+                  input(type="checkbox" name="educationLevel" value="College+")
+                  span(data-i18n="teachers_quote.college_plus")
+              .checkbox
+                label
                   input#other-education-level-checkbox(type="checkbox")
-                  span(data-i18n="nav.other")
-                  | 
+                  span(data-i18n="nav.other").spr
                   span(data-i18n="teachers_quote.please_explain")
-                input#other-education-level-input.form-control
+              input#other-education-level-input.form-control
             
-      #anything-else-row.section
-        .row
-          .col-sm-offset-2.col-sm-8
-            label.control-label
-              span(data-i18n="teachers_quote.anything_else")
-              span.spl.text-muted(data-i18n="signup.optional")
-            
-            textarea.form-control(rows=8, name="notes")
+      #anything-else-row.row
+        .col-md-offset-2.col-md-8
+          label.control-label
+            span(data-i18n="teachers_quote.anything_else")
+            span.spl.text-muted(data-i18n="signup.optional")
+          
+          textarea.form-control(rows=8, name="notes")
             
       #buttons-row.row.text-center
         input#submit-request-btn.btn.btn-lg.btn-primary(type="submit" data-i18n="[value]teachers_quote.title")
         
         
-    #form-submit-success.text-center(class=view.trialRequest.isNew() ? 'hide' : '')
-      h3.text-center(data-i18n="teachers_quote.thanks_header")
-      p.text-center
+    #form-submit-success.text-center(class=showDone ? '' : 'hide')
+      h3(data-i18n="teachers_quote.thanks_header")
+      h4(data-i18n="teachers_quote.thanks_sub_header")
+      p
         span.spr(data-i18n="teachers_quote.thanks_p")
         a.spl(href="mailto:team@codecombat.com") team@codecombat.com
 
       if me.isAnonymous()
-        p.text-center(data-i18n="teachers_quote.thanks_anon")
+        h5(data-i18n="teachers_quote.finish_signup")
+        p(data-i18n="teachers_quote.finish_signup_p")
           
-        p.text-center
-          button#login-btn.btn.btn-info(data-i18n="login.log_in")
-          button#signup-btn.btn.btn-info(data-i18n="login.sign_up")
-      else
-        p.text-center(data-i18n="teachers_quote.thanks_logged_in")
-        div
-          a.btn.btn-primary.btn-lg(href="/courses/teachers", data-i18n="teachers_quote.setup_a_class")
+        #social-network-signups
+          span(data-i18n="teachers_quote.signup_with")
+          button#facebook-signup-btn.btn.btn-navy.btn-lg Facebook
+          button#gplus-signup-btn.btn.btn-burgandy.btn-lg G+
+        
+        .text-h1.text-uppercase(data-i18n="general.or")
+        
+        form#signup-form.text-left
+          .row
+            .col-md-offset-2.col-md-4
+              .form-group
+                label.control-label(data-i18n="general.name")
+                input.form-control(name="name")
+        
+          .row
+            .col-md-offset-2.col-md-4
+              .form-group
+                label.control-label(data-i18n="general.password")
+                input.form-control(name="password1", type="password")
+            .col-md-4
+              .form-group
+                label.control-label(data-i18n="general.confirm_password")
+                input.form-control(name="password2", type="password")
+        
+          .text-center
+            button.btn.btn-lg.btn-navy(data-i18n="login.sign_up")

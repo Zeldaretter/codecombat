@@ -266,6 +266,7 @@
     subject: "Subject"
     email: "Email"
     password: "Password"
+    confirm_password: "Confirm Password"
     message: "Message"
     code: "Code"
     ladder: "Ladder"
@@ -284,6 +285,9 @@
     warrior: "Warrior"
     ranger: "Ranger"
     wizard: "Wizard"
+    first_name: "First Name"
+    last_name: "Last Name"
+    username: "Username"
 
   units:
     second: "second"
@@ -720,7 +724,7 @@
   teachers_quote:
     name: "Demo Form" # {change}
     title: "Request a Demo" # {change}
-    subtitle: "Get your students started in less than an hour. You'll be able to <strong>create a class, add students, and monitor their progress</strong> as they learn computer science." # {change}
+    subtitle: "Get your students started in less than an hour. You'll be able to <strong>set up a class, add students, and monitor their progress</strong> as they learn computer science." # {change}
     email_exists: "User exists with this email."
     phone_number: "Phone number"
     phone_number_help: "Where can we reach you during the workday?"
@@ -744,11 +748,13 @@
     middle_school: "Middle School"
     college_plus: "College or higher"
     anything_else: "Anything else we should know?"
-    thanks_header: "Thanks for requesting a demo!" # {change}
-    thanks_p: "We'll be in touch soon. Questions? Email us:"
-    thanks_anon: "Log in or create an account to set up a class, add your students, and monitor their progress as they learn computer science." # {change}
-    thanks_logged_in: "Set up a class, add your students, and monitor their progress as they learn computer science." # {change}
-    setup_a_class: "Set Up a Class"
+    thanks_header: "Request Received!" # {change}
+    thanks_sub_header: "Thanks for expressing interest in CodeCombat for your school."
+    thanks_p: "We'll be in touch soon! If you need to get in contact, you can reach us at:" # {change}
+    finish_signup: "Finish creating your teacher account:"
+    finish_signup_p: "Create an account to set up a class, add your students, and monitor their progress as they learn computer science."
+    signup_with: "Sign up with:"
+    conversion_warning: "WARNING: Your current account is a <em>Student Account</em>. Once you submit this form, your account will be converted into a Teacher Account."
 
   versions:
     save_version_title: "Save New Version"
