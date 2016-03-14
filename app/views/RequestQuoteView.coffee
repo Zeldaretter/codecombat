@@ -73,15 +73,16 @@ module.exports = class RequestQuoteView extends RootView
     forms.clearFormAlerts(form)
     requestFormSchema = if me.isAnonymous() then requestFormSchemaAnonymous else requestFormSchemaLoggedIn
     result = tv4.validateMultiple(attrs, requestFormSchemaAnonymous)
-    error = true
+    error = false
     if not result.valid
       forms.applyErrorsToForm(form, result.errors)
-    else if not forms.validateEmail(attrs.email)
+      error = true
+    if not forms.validateEmail(attrs.email)
       forms.setErrorToProperty(form, 'email', 'Invalid email.')
-    else if not _.size(attrs.educationLevel)
-      return forms.setErrorToProperty(form, 'educationLevel', 'Check at least one.')
-    else
-      error = false
+      error = true
+    if not _.size(attrs.educationLevel)
+      forms.setErrorToProperty(form, 'educationLevel', 'Check at least one.')
+      error = true
     if error
       forms.scrollToFirstError()
       return
