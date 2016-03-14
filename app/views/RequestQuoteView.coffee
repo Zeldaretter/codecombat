@@ -51,7 +51,7 @@ module.exports = class RequestQuoteView extends RootView
     if obj
       @$('#other-education-level-checkbox').attr('checked', obj.otherChecked)
       @$('#other-education-level-input').val(obj.otherInput)
-      forms.objectToForm(@$('#request-form'), obj)
+      forms.objectToForm(@$('#request-form'), obj, { overwriteExisting: true })
 
   onChangeRequestForm: ->
     # save changes to local storage
