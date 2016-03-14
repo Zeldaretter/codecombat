@@ -755,6 +755,7 @@
     finish_signup_p: "Create an account to set up a class, add your students, and monitor their progress as they learn computer science."
     signup_with: "Sign up with:"
     conversion_warning: "WARNING: Your current account is a <em>Student Account</em>. Once you submit this form, your account will be converted into a Teacher Account."
+    learn_more_modal: "Teacher accounts on CodeCombat have the ability to monitor student progress, assign enrollments and manage classrooms. Teacher accounts cannot be a part of a classroom - if you are currently enrolled in a class using this account, you will no longer be able to access it once you convert to a Teacher Account."
 
   versions:
     save_version_title: "Save New Version"

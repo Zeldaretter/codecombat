@@ -3,6 +3,13 @@ extends /templates/base-flat
 - var showDone = !view.trialRequest.isNew() && me.isAnonymous();
 
 block content
+  #learn-more-modal.modal.fade
+    .modal-dialog.modal-sm
+      .modal-content.style-flat
+        .modal-header
+          .button.close(type="button", data-dismiss="modal", aria-hidden="true") &times;
+        .modal-body(data-i18n="teachers_quote.learn_more_modal")
+  
   .container
     form#request-form(class=showDone ? 'hide' : '')
       .row
@@ -24,7 +31,7 @@ block content
               if me.get('role') === 'student'
                 div#conversion-warning
                   span.spr(data-i18n="[html]teachers_quote.conversion_warning")
-                  a(href="/" data-i18n="new_home.learn_more")
+                  a(data-i18n="new_home.learn_more" data-toggle="modal" data-target="#learn-more-modal")
         
       #form-teacher-info
         if !me.isAnonymous()
