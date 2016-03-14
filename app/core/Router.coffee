@@ -192,7 +192,7 @@ module.exports = class CocoRouter extends Backbone.Router
 
   initializeSocialMediaServices: ->
     return if application.testing or application.demoing
-    require('core/services/facebook')()
+    application.facebookHandler.loadAPI()
     application.gplusHandler.loadAPI()
     require('core/services/twitter')()
 
