@@ -20,9 +20,12 @@ describe 'RequestQuoteView', ->
     educationLevel: ['Middle']
   }
   
+  isSubmitRequest = (r) -> _.string.startsWith(r.url, '/db/trial.request') and r.method is 'POST'
+  
   describe 'when user is anonymous and has no role', ->
     beforeEach (done) ->
-      me.unset('role')
+      me.clear()
+      me._revertAttributes = {}
       spyOn(me, 'isAnonymous').and.returnValue(true)
       view = new RequestQuoteView()
       view.render()
@@ -64,7 +67,7 @@ describe 'RequestQuoteView', ->
       beforeEach ->
         forms.objectToForm(view.$el, successFormValues)
         view.$('#request-form').submit()
-        @submitRequest = _.last(jasmine.Ajax.requests.filter((r) -> _.string.startsWith(r.url, '/db/trial.request')))
+        @submitRequest = _.last(jasmine.Ajax.requests.filter(isSubmitRequest))
         @submitRequest.respondWith({
           status: 201
           responseText: JSON.stringify(_.extend({_id: 'a'}, successFormValues))
@@ -88,7 +91,7 @@ describe 'RequestQuoteView', ->
       beforeEach ->
         forms.objectToForm(view.$el, successFormValues)
         view.$('#request-form').submit()
-        @submitRequest = _.last(jasmine.Ajax.requests.filter((r) -> _.string.startsWith(r.url, '/db/trial.request')))
+        @submitRequest = _.last(jasmine.Ajax.requests.filter(isSubmitRequest))
         @submitRequest.respondWith({
           status: 409
           responseText: '{}'
@@ -115,5 +118,17 @@ describe 'RequestQuoteView', ->
       expect(view.$('#conversion-warning').length).toBe(1)
       
     it 'requires confirmation to submit the form', ->
+      form = view.$('#request-form')
+      forms.objectToForm(form, successFormValues)
+      spyOn(view, 'openModalView')
+      form.submit()
+      expect(view.openModalView).toHaveBeenCalled()
+      
+      submitRequest = _.last(jasmine.Ajax.requests.filter(isSubmitRequest))
+      expect(submitRequest).toBeFalsy()
+      confirmModal = view.openModalView.calls.argsFor(0)[0]
+      confirmModal.trigger 'confirm'
+      submitRequest = _.last(jasmine.Ajax.requests.filter(isSubmitRequest))
+      expect(submitRequest).toBeTruthy()
       
       

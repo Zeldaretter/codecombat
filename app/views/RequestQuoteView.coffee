@@ -5,6 +5,7 @@ TrialRequests = require 'collections/TrialRequests'
 AuthModal = require 'views/core/AuthModal'
 storage = require 'core/storage'
 errors = require 'core/errors'
+ConfirmModal = require 'views/editor/modal/ConfirmModal'
 
 FORM_KEY = 'request-quote-form'
 
@@ -88,12 +89,25 @@ module.exports = class RequestQuoteView extends RootView
       type: 'course'
       properties: attrs
     })
+    if me.get('role') is 'student' and not me.isAnonymous()
+      modal = new ConfirmModal({
+        title: ''
+        body: "<p>#{$.i18n.t('teachers_quote.conversion_warning')}</p><p>#{$.i18n.t('teachers_quote.learn_more_modal')}</p>"
+        confirm: $.i18n.t('common.continue')
+        decline: $.i18n.t('common.cancel')
+      })
+      @openModalView(modal)
+      modal.once 'confirm', @saveTrialRequest, @
+    else
+      @saveTrialRequest()
+    
+  saveTrialRequest: ->
     @trialRequest.notyErrors = false
     @$('#submit-request-btn').text('Sending').attr('disabled', true)
     @trialRequest.save()
     @trialRequest.on 'sync', @onTrialRequestSubmit, @
     @trialRequest.on 'error', @onTrialRequestError, @
-    me.setRole attrs.role.toLowerCase(), true
+    me.setRole @trialRequest.get('properties').role.toLowerCase(), true
 
   onTrialRequestError: (model, jqxhr) ->
     @$('#submit-request-btn').text('Submit').attr('disabled', false)
