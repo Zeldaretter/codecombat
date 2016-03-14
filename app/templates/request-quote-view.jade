@@ -86,7 +86,7 @@ block content
               .help-block.small
                 em.text-info(data-i18n="teachers_quote.role_help")
               select.form-control(name="role")
-                option
+                option(data-i18n="teachers_quote.role_default", , value='')
                 option(data-i18n="courses.teacher", value="Teacher")
                 option(data-i18n="teachers_quote.tech_coordinator", value="Technology coordinator")
                 option(data-i18n="teachers_quote.advisor", value="Advisor")
@@ -125,7 +125,7 @@ block content
               .help-block.small
                 em.text-info(data-i18n="teachers_quote.num_students_help")
               select.form-control(name="numStudents")
-                option
+                option(data-i18n="teachers_quote.num_students_default", value='')
                 option 1-10
                 option 11-50
                 option 51-100
