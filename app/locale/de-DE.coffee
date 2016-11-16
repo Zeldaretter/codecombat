@@ -30,8 +30,7 @@ module.exports = nativeDescription: "Deutsch (Deutschland)", englishDescription:
     encourage: "Spiele sind ein Medium, das Interaktionen, Entdeckungen und Versuch-und-Irrtum fördert. Ein gutes Spiel fordert den Spieler dazu auf Fähigkeiten über die Zeit hinweg zu erwerben, was der selbe entscheidende Prozess ist, durch den Schüler gehen, während sie etwas lernen."
     excel: "Spiele glänzen im belohnen von"
     struggle: "produktiven Anstrengungen"
-    kind_of_struggle: ", also den Anstrengungen die in einem Lernen resultieren, dass gewinnbringend und"
-    motivating: "motivierend ist"
+    kind_of_struggle: ", also den Anstrengungen die in einem Lernen resultieren, dass gewinnbringend und"    motivating: "motivierend ist"
     not_tedious: "und nicht langweilig."
     gaming_is_good: "Studien legen nahe, dass spielen gut für das kindliche Gehirn ist. (Es ist wahr!)"
     game_based: "Wenn spielbasierte Lernsysteme "
@@ -63,7 +62,7 @@ module.exports = nativeDescription: "Deutsch (Deutschland)", englishDescription:
     goto_classes: "Gehe zu meinen Klassen"
     view_profile: "Zeige mein Profil"
     view_progress: "Fortschritt ansehen"
-#    go_to_courses: "Go to My Courses"
+    go_to_courses: "Gehe zu meinen Kursen"#"Go to My Courses"
     want_coco: "Wollen Sie CodeCombat an ihrer Schule?"
 
   nav:
