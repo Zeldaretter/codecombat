@@ -46,7 +46,7 @@ module.exports = nativeDescription: "Deutsch (Deutschland)", englishDescription:
     get_started_subtitle: "Erstellen Sie eine Klasse, fügen Sie Schüler hinzu und verfolgen Sie ihren Fortschritt während sie Informatik lernen."
     request_demo: "Demo anfragen"
     setup_a_class: "Eine Klasse erstellen"
-    have_an_account: "Haben Sie bereits einen Account?" # {change}
+    have_an_account: "Account vorhanden?"
     logged_in_as: "Sie sind zurzeit eingeloggt als"
     computer_science: "Informatikkurse für alle Altersgruppen"
     show_me_lesson_time: "Zeig mir die vorgeschlagene Stundenzeit für:"
@@ -54,7 +54,7 @@ module.exports = nativeDescription: "Deutsch (Deutschland)", englishDescription:
     ffa: "Kostenlos für alle Schüler"
     lesson_time: "Lektionszeit:"
     coming_soon: "Coming soon!"
-    courses_available_in: "Kurse sind verfügbar in JavaScript, Python, und Java (coming soon!)" # {change}
+    courses_available_in: "Kurse sind verfügbar in JavaScript und Python. Webentwicklungskurse beschäftigen sich mit HTML, CSS, jQuery und Bootstrap." # {Courses are available in JavaScript and Python. Web Development courses utilize HTML, CSS, jQuery, and Bootstrap.}
     boast: "Bietet Rätsel die komplex genug sind um Spieler und Programmiere zu faszinieren."
     winning: "Eine gewinnbringende Kombination aus RPG-Gameplay und Programmierhausaufgaben die aufgeht und kindgerechte Bildung berechtigterweise unterhaltsam macht."
     run_class: "Alles was man braucht um einen Informatikkurs in der Schule zu geben, ohne dass man Hintergrundwissen braucht."
